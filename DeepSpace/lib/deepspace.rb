@@ -1,6 +1,5 @@
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
+# David Cabezas Berrido
+# Patricia Córdoba Hidalgo
 
 module Deepspace
   
@@ -60,11 +59,138 @@ module Deepspace
        @shieldPower=shi
      end
      
-     def self.newCopy(original)
-       new(original.ammoPower, 
-         original.fuelUnits,
-         original.shieldPower)
+     def self.newCopy(s)
+       SuppliesPackage.new(s.ammoPower, 
+         s.fuelUnits,
+         s.shieldPower)
      end
    end
   
+   class ShielBooster
+     
+     attr_read :boost, :uses
+     
+     def initialize(nam, boo, use)
+       @name = nam
+       @boost = boo
+       @uses = use
+     end
+     
+     def self.newCopy(s)
+       ShieldBooster.new(s.name, s.boost, s.uses)
+     end
+     
+     def useIt
+       if @uses > 0
+         @uses -= 1
+         return @boost
+       else
+         return 1.0
+       end
+     end
+   end
+   
+   class Weapon
+     
+     attr_read :type, :uses
+     
+     def initialize(nam, typ, use)
+       @name = nam
+       @type = typ
+       @uses = use
+     end
+     
+     def self.newCopy(w)
+       Weapon.new(w.name, w.type, w.uses)
+     end
+     
+     def power
+       @type.power
+     end
+     
+     def useIt
+       if @uses > 0
+         @uses -= 1
+         power
+       else
+         1.0
+       end
+     end    
+   end
+   
+   class Dice
+     
+     def initialize()
+       @NHANGARSPROB = 0.25
+       @NSHIELDSPROB = 0.25
+       @NWEAPONSPROB = 0.33
+       @FIRSTSHOTPROB = 0.5
+       @generator = Random.new
+     end
+     
+     def initWithNHangars()
+       
+       x = @generator.rand(1.0)
+       
+       if x < @NHANGARSPROB
+         return 0
+       else
+         return 1
+       end
+     end
+     
+     def initWithNWeapons()
+       
+       x = @generator.rand(1.0)
+     
+       if x < @NWEAPONSPROB
+         return 1
+         
+       elsif @NWEAPONSPROB <=x && x<@NWEAPONSPROB
+         return 2
+       
+       else
+         return 3
+       end
+     end
+     
+     def initWithShields()
+       
+       x = @generator.rand(1.0)
+       
+       if x < @NSHIELDSPROB
+         return 0
+       else
+         return 1
+       end
+     end
+    
+     def whoStarts(nPlayers)
+       return @generator.rand(nPlayers)
+     end
+     
+     def firstShot()
+       
+       x = @generator.rand(1.0)
+       
+       if x < @FIRSTSHOTPROB
+         return GameCharacter::SPACESTATION
+       else
+         return GameCharacter::ENEMYSTARSHIP
+       end
+       
+     end
+     
+     def spaceStationMoves(speed)
+       
+       x = @generator.rand(1.0)
+       
+       if x < speed
+         return true
+       else
+         return false
+       end
+     end
+   end
+   
 end
