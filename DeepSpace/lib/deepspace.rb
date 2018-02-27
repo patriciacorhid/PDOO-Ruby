@@ -23,7 +23,7 @@ module Deepspace
    module WeaponType
      class Type
        
-      attr_read :power
+      attr_reader :power
        
       def initialize(pow)
         @power=pow
@@ -38,7 +38,7 @@ module Deepspace
    
    class Loot
      
-     attr_read :nSupplies, :nWeapons, :nShields, :nHangars, :nMedals
+     attr_reader :nSupplies, :nWeapons, :nShields, :nHangars, :nMedals
    
      def initialize(sup, wea, shi, han, med)
        @nSupplies=sup
@@ -51,7 +51,7 @@ module Deepspace
    
    class SuppliesPackage
      
-     attr_read :ammoPower, :fuelUnits, :shieldPower
+     attr_reader :ammoPower, :fuelUnits, :shieldPower
      
      def initialize(amm, fue, shi)
        @ammoPower=amm
@@ -66,9 +66,9 @@ module Deepspace
      end
    end
   
-   class ShielBooster
+   class ShieldBooster
      
-     attr_read :boost, :uses
+     attr_reader :name, :boost, :uses # ¿name?
      
      def initialize(nam, boo, use)
        @name = nam
@@ -92,7 +92,7 @@ module Deepspace
    
    class Weapon
      
-     attr_read :type, :uses
+     attr_reader :name, :type, :uses # ¿name?
      
      def initialize(nam, typ, use)
        @name = nam
@@ -146,7 +146,7 @@ module Deepspace
        if x < @NWEAPONSPROB
          return 1
          
-       elsif @NWEAPONSPROB <=x && x<@NWEAPONSPROB
+       elsif @NWEAPONSPROB <=x && x<@NWEAPONSPROB*2
          return 2
        
        else
@@ -154,7 +154,7 @@ module Deepspace
        end
      end
      
-     def initWithShields()
+     def initWithNShields()
        
        x = @generator.rand(1.0)
        
@@ -191,6 +191,5 @@ module Deepspace
          return false
        end
      end
-   end
-   
+   end   
 end
