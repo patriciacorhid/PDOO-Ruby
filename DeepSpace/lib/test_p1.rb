@@ -1,21 +1,28 @@
 # David Cabezas Berrido
 # Patricia Córdoba Hidalgo
 
-require_relative 'deepspace.rb'
+require_relative 'Dice.rb'
+require_relative 'GameCharacter.rb'
+require_relative 'Loot.rb'
+require_relative 'ShieldBooster.rb'
+require_relative 'Weapon.rb'
+require_relative 'SuppliesPackage.rb'
+require_relative 'WeaponType.rb'
+
 class TestP1
     
   def self.main
     
-    loot = Deepspace::Loot.new(2, 7, 5, 9, 4)
-    sp = Deepspace::SuppliesPackage.new(3.9, 2.1, 8.3)
-    spc = Deepspace::SuppliesPackage.newCopy(sp)
-    sb = Deepspace::ShieldBooster.new("Table", 8.1, 3)
-    sbc = Deepspace::ShieldBooster.newCopy(sb)
-    laser = Deepspace::Weapon.new("Destroyer", Deepspace::WeaponType::LASER, 1)
-    missile = Deepspace::Weapon.new("Exploder", Deepspace::WeaponType::MISSILE, 2)
-    plasma = Deepspace::Weapon.new("Boom", Deepspace::WeaponType::PLASMA, 3)
-    wc = Deepspace::Weapon.newCopy(missile)
-    dice = Deepspace::Dice.new
+    loot = DeepSpace::Loot.new(2, 7, 5, 9, 4)
+    sp = DeepSpace::SuppliesPackage.new(3.9, 2.1, 8.3)
+    spc = DeepSpace::SuppliesPackage.newCopy(sp)
+    sb = DeepSpace::ShieldBooster.new("Table", 8.1, 3)
+    sbc = DeepSpace::ShieldBooster.newCopy(sb)
+    laser = DeepSpace::Weapon.new("Destroyer", DeepSpace::WeaponType::LASER, 1)
+    missile = DeepSpace::Weapon.new("Exploder", DeepSpace::WeaponType::MISSILE, 2)
+    plasma = DeepSpace::Weapon.new("Boom", DeepSpace::WeaponType::PLASMA, 3)
+    wc = DeepSpace::Weapon.newCopy(missile)
+    dice = DeepSpace::Dice.new
     
     puts "Loot:"
     puts loot.nSupplies
@@ -106,7 +113,7 @@ class TestP1
       p = dice.whoStarts(players.size)
       players[p] += 1
       
-      if dice.firstShot == Deepspace::GameCharacter::SPACESTATION
+      if dice.firstShot == DeepSpace::GameCharacter::SPACESTATION
         station += 1
       else
         enemy += 1
