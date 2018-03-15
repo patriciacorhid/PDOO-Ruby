@@ -5,7 +5,7 @@ module DeepSpace
   class SpaceStation
     
     attr_reader :ammoPower, :fuelUnits, :name, :nMedals, :shieldPower, :hangar, :pendingDamage,
-                :weapons, :shieldBoosters
+                :weapons, :shieldBoosters, :hangar, :pendingDamage
     
     @@MAXFUEL=100
     @@SHIELDLOSSPERUNITSHOT=0.1
@@ -19,6 +19,8 @@ module DeepSpace
       
       @weapons = Array.new()
       @shieldBoosters = Array.new()
+      @hangar = nil
+      @pendingDamage = nil
       
     end
     
@@ -75,7 +77,14 @@ module DeepSpace
     end
     
     def fire
+      size = @weapons.length
+      factor = 1
       
+      for i in (0...size)
+        factor*=@weapons[i].useIt
+      end
+      
+      return factor*@ammoPower
     end
     
     def getSpeed
@@ -109,6 +118,14 @@ module DeepSpace
     end
     
     def protection
+      size=@weapon.length
+      factor=1
+      
+      for i in (0...size)
+        factor*=@shieldBooster[i].useIt
+      end
+      
+      return factor*@shieldPower
       
     end
     
@@ -125,7 +142,16 @@ module DeepSpace
     end
     
     def receiveShot(shot)
+      myProtection = protection()
       
+      if myProtection >= shot
+        @shieldPower-=@@SHIELDLOSSPERUNITSHOT*shot
+        @shieldPower=[0.0, @shieldPower].max
+        return ShotResult::RESIST
+      else
+        @shieldPower=0.0
+        return ShotResult::DONOTRESIST
+      end
     end
     
     def receiveSupplies(s)
@@ -141,6 +167,25 @@ module DeepSpace
     end
     
     def setLoot(loot)
+      dealer=CardDealer.getInstance
+      
+      if loot.nHangars > 0
+        receiveHangar(dealer.nextHangar)
+      end
+      
+      for i in (0...loot.nSupplies)
+        receiveSupplies(dealer.nextSuppliesPackage)
+      end
+      
+      for j in (0...loot.nWeapons)
+        receiveWeapon(dealer.nextWeapon)
+      end
+      
+      for k in (0...loot.nShields)
+        receiveShieldBooster(dealer.nextShieldBooster)
+      end
+      
+      @nMedals+=loot.nMedals
       
     end
     
