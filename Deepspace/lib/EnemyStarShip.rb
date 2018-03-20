@@ -1,7 +1,9 @@
 # David Cabezas Berrido
 # Patricia Córdoba Hidalgo
 
-module DeepSpace
+require_relative 'EnemyToUI'
+
+module Deepspace
   class EnemyStarShip
     
     attr_reader :ammoPower, :name, :shieldPower, :loot, :damage

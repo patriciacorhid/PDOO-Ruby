@@ -1,7 +1,7 @@
 # David Cabezas Berrido
 # Patricia Córdoba Hidalgo
 
-module DeepSpace
+module Deepspace
   class Dice
     def initialize()
        @NHANGARSPROB = 0.25

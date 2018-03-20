@@ -1,7 +1,9 @@
 # David Cabezas Berrido
 # Patricia Córdoba Hidalgo
 
-module DeepSpace
+require_relative 'DamageToUI'
+
+module Deepspace
   class Damage
     
     attr_reader :weapons, :nShields, :nWeapons
@@ -9,7 +11,11 @@ module DeepSpace
     def initialize(s, w, wl)
       @nShields = s
       @nWeapons = w
-      @weapons = wl
+      if(wl!=nil)
+        @weapons=Array.new(wl)
+      else
+        @weapons=nil
+      end
     end
     
     def self.newNumericWeapons(w, s)
@@ -31,14 +37,16 @@ module DeepSpace
     private
     def adjust(w,s)
       aux = Damage.newCopy(self)
+      copy = w.clone()
       
-#      weapons.each {|x|
-#        if(arrayContainsType(w, x.type)==-1)
-#          aux.weapons.delete(x)
-#        end
-#      }
-      aux.weapons.delete_if { |x| 
-      arrayContainsType(w,x.type) == -1}
+      @weapons.each {|x|
+        index=arrayContainsType(copy, x)
+        if(index==-1)
+          aux.weapons.delete(x)
+        else
+          copy.delete_at(index)
+        end
+      }
       
       if(@nShields>s.size)
         aux.nShields=s.size
@@ -67,7 +75,7 @@ module DeepSpace
       end
     end
     
-    def discardShieldBooster(s)
+    def discardShieldBooster
       nShields -= 1
     end
     

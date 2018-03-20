@@ -1,7 +1,9 @@
 # David Cabezas Berrido
 # Patricia Córdoba Hidalgo
 
-module DeepSpace
+require_relative 'LootToUI'
+
+module Deepspace
   class Loot
      attr_reader :nSupplies, :nWeapons, :nShields, :nHangars, :nMedals
    
@@ -14,7 +16,7 @@ module DeepSpace
      end
      
      def getUIversion
-       
+       return LootToUI.new(self)
      end
      
      def to_s

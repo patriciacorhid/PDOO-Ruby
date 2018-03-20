@@ -155,4 +155,4 @@ class TestP1
   end 
 end
 
-TestP1.main
+#TestP1.main

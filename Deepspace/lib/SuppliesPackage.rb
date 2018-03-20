@@ -1,7 +1,7 @@
 # David Cabezas Berrido
 # Patricia Córdoba Hidalgo
 
-module DeepSpace
+module Deepspace
   class SuppliesPackage
      attr_reader :ammoPower, :fuelUnits, :shieldPower
      

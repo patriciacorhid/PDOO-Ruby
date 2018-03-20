@@ -1,7 +1,9 @@
 # David Cabezas Berrido
 # Patricia Córdoba Hidalgo
 
-module DeepSpace
+require_relative 'SpaceStationToUI'
+
+module Deepspace
   class SpaceStation
     
     attr_reader :ammoPower, :fuelUnits, :name, :nMedals, :shieldPower, :hangar, :pendingDamage,
@@ -57,7 +59,13 @@ module DeepSpace
     end
     
     def discardShieldBooster(i)
-      
+      if i>=0 && i<@shieldBooster.length
+        @shieldBooster.delete_at(i)
+        if pendingDamage!=nil
+          pendingDamage.discardShieldBooster
+          cleanPendingDamage
+        end
+      end
     end
     
     def discardShieldBoosterInHangar(i)
@@ -67,7 +75,13 @@ module DeepSpace
     end
     
     def discardWeapon(i)
-      
+      if i>=0 && i<@weapons.length
+        w=@weapons.delete_at(i)
+        if @pendingDamage!=nil
+          @pendingDamage.discardWeapon(w)
+          cleanPendingDamage
+        end
+      end
     end
     
     def discardWeaponInHangar(i)
@@ -124,9 +138,7 @@ module DeepSpace
       for i in (0...size)
         factor*=@shieldBooster[i].useIt
       end
-      
       return factor*@shieldPower
-      
     end
     
     def receiveHangar(h)
@@ -160,14 +172,14 @@ module DeepSpace
       @shieldPower += s.shieldPower
     end
     
-    def receiveWeapons(w)
+    def receiveWeapon(w)
       if @hangar != nil
         return hangar.addWeapon(w)
       end
     end
     
     def setLoot(loot)
-      dealer=CardDealer.getInstance
+      dealer=CardDealer.instance
       
       if loot.nHangars > 0
         receiveHangar(dealer.nextHangar)
@@ -186,11 +198,10 @@ module DeepSpace
       end
       
       @nMedals+=loot.nMedals
-      
     end
     
     def setPendingDamage(d)
-      @pendingDamage = d
+      @pendingDamage = d.adjust(@weapons, @shieldBoosters)
     end
     
     def validState

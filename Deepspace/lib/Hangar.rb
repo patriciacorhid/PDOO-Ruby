@@ -1,7 +1,9 @@
 # David Cabezas Berrido
 # Patricia Córdoba Hidalgo
 
-module DeepSpace
+require_relative 'HangarToUI'
+
+module Deepspace
   class Hangar
     
     attr_reader :maxElements, :weapons, :shieldBoosters
@@ -36,7 +38,7 @@ module DeepSpace
     
     def addShieldBooster(s)
       if spaceAvailable
-        @shieldBooster.push(s)
+        @shieldBoosters.push(s)
         return true
       end
       return false

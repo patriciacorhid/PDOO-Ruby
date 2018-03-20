@@ -1,7 +1,7 @@
 # David Cabezas Berrido
 # Patricia Córdoba Hidalgo
 
-module DeepSpace
+module Deepspace
   module CombatResult
      ENEMYWINS=:enemywins
      NOCOMBAT=:nocombat

@@ -1,7 +1,7 @@
 # David Cabezas Berrido
 # Patricia Córdoba Hidalgo
 
-module DeepSpace
+module Deepspace
   class ShieldBooster
     attr_reader :name, :boost, :uses
      
