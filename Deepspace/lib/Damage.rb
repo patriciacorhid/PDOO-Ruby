@@ -2,6 +2,7 @@
 # Patricia Córdoba Hidalgo
 
 require_relative 'DamageToUI'
+require 'pp'
 
 module Deepspace
   class Damage
@@ -34,31 +35,39 @@ module Deepspace
       return DamageToUI.new(self)
     end
     
-    private
     def adjust(w,s)
-      aux = Damage.newCopy(self)
-      copy = w.clone()
       
-      @weapons.each {|x|
-        index=arrayContainsType(copy, x)
-        if(index==-1)
-          aux.weapons.delete(x)
-        else
-          copy.delete_at(index)
-        end
-      }
+      nw = @nWeapons
+      if @nWeapons > w.length
+        nw = w.length
+      end
       
-      if(@nShields>s.size)
-        aux.nShields=s.size
+      ns = @nShields
+      if @nShields > s.length
+        ns = s.length
+      end
+      
+      aux = Damage.new(ns, nw, @weapons)
+      copy = Array.new(w)
+      
+      if @weapons != nil
+        @weapons.each {|x|
+          index=arrayContainsType(copy, x)
+
+          if(index==-1)
+            aux.weapons.delete_at(aux.weapons.index(x))
+          else
+            copy.delete_at(index)
+          end
+        }
       end
       
       return aux
-      
     end
     
+    private
     def arrayContainsType(w,t)
       index=-1
-  
       for i in (0...w.length) do
         if(t == w[i].type)
           index = i
@@ -70,17 +79,19 @@ module Deepspace
 
     public
     def discardWeapon(w)
-      if(!@weapons.delete(w.type) && nWeapons>0)
-        nWeapons -= 1
+      if @weapons == nil && @nWeapons>0
+        @nWeapons -= 1
+      else
+        @weapons.delete(w.type)
       end
     end
     
     def discardShieldBooster
-      nShields -= 1
+      @nShields -= 1
     end
     
     def hasNoEffect
-      return (nShields <= 0 && nWeapons <= 0)
+      return @nShields <= 0 && (@nWeapons <= 0 || @weapons == nil) 
     end
     
     def to_s

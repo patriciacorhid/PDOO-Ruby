@@ -2,6 +2,7 @@
 # Patricia Córdoba Hidalgo
 
 require_relative 'EnemyToUI'
+require_relative 'ShotResult'
 
 module Deepspace
   class EnemyStarShip
@@ -31,7 +32,7 @@ module Deepspace
       return shieldPower
     end
     
-    def recieveShot(shot)
+    def receiveShot(shot)
       if shot > shieldPower
         return ShotResult::DONOTRESIST
       end

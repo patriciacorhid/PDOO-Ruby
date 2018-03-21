@@ -2,12 +2,13 @@
 # Patricia Córdoba Hidalgo
 
 require_relative 'SpaceStationToUI'
+require 'pp'
 
 module Deepspace
   class SpaceStation
     
     attr_reader :ammoPower, :fuelUnits, :name, :nMedals, :shieldPower, :hangar, :pendingDamage,
-                :weapons, :shieldBoosters, :hangar, :pendingDamage
+                :weapons, :shieldBoosters, :pendingDamage
     
     @@MAXFUEL=100
     @@SHIELDLOSSPERUNITSHOT=0.1
@@ -23,7 +24,6 @@ module Deepspace
       @shieldBoosters = Array.new()
       @hangar = nil
       @pendingDamage = nil
-      
     end
     
     private
@@ -33,7 +33,7 @@ module Deepspace
       end
     end
     
-    def cleanPendingDamage()
+    def cleanPendingDamage
       if @pendingDamage.hasNoEffect == true
         @pendingDamage = nil
       end
@@ -41,17 +41,19 @@ module Deepspace
     
     public
     def cleanUpMountedItems
-      for i in (0...@weapons.length)
+      
+      (@weapons.length-1).downto(0) { |i|
         if @weapons[i].uses <= 0
           @weapons.delete_at(i)
         end
-      end
+      }
       
-      for i in (0...@shieldBoosters.length)
+      (@shieldBoosters.length-1).downto(0) { |i|
         if @shieldBoosters[i].uses <= 0
-          @shieldBooster.delete_at(i)
+          @shieldBoosters.delete_at(i)
         end
-      end
+      }
+
     end
     
     def discardHangar
@@ -59,8 +61,8 @@ module Deepspace
     end
     
     def discardShieldBooster(i)
-      if i>=0 && i<@shieldBooster.length
-        @shieldBooster.delete_at(i)
+      if i>=0 && i<@shieldBoosters.length
+        @shieldBoosters.delete_at(i)
         if pendingDamage!=nil
           pendingDamage.discardShieldBooster
           cleanPendingDamage
@@ -121,6 +123,9 @@ module Deepspace
     def mountWeapon(i)
       if @hangar != nil
         w = @hangar.removeWeapon(i)
+        
+        puts "Llamada a mountWeapon" 
+        
         if w != nil
           @weapons.push(w)
         end
@@ -128,26 +133,29 @@ module Deepspace
     end  
     
     def move
-      fuelUnits -= getSpeed
+      @fuelUnits -= getSpeed
     end
     
     def protection
-      size=@weapon.length
+      size=@shieldBoosters.length
       factor=1
       
       for i in (0...size)
-        factor*=@shieldBooster[i].useIt
+        factor*=@shieldBoosters[i].useIt
       end
       return factor*@shieldPower
     end
     
     def receiveHangar(h)
+      puts "Llamada a receiveHangar"
+      pp h
       if @hangar == nil
         @hangar = h
       end
     end
     
     def receiveShieldBooster(s)
+      puts "Llamada a receiveShieldBooster"
       if @hangar != nil
         return @hangar.addShieldBooster(s)
       end
@@ -173,6 +181,7 @@ module Deepspace
     end
     
     def receiveWeapon(w)
+      puts "Llamada a receiveWeapon"
       if @hangar != nil
         return hangar.addWeapon(w)
       end
@@ -180,6 +189,8 @@ module Deepspace
     
     def setLoot(loot)
       dealer=CardDealer.instance
+      
+      puts "Llamada a setLoot"
       
       if loot.nHangars > 0
         receiveHangar(dealer.nextHangar)

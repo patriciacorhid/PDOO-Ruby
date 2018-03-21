@@ -1,6 +1,8 @@
 # David Cabezas Berrido
 # Patricia Córdoba Hidalgo
 
+require_relative 'WeaponToUI'
+
 module Deepspace
   class Weapon
     attr_reader :name, :type, :uses
@@ -16,7 +18,7 @@ module Deepspace
      end
      
      def getUIversion
-       
+       WeaponToUI.new(self)
      end
      
      def power

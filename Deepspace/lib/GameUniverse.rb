@@ -6,6 +6,8 @@ require_relative 'Dice'
 require_relative 'CardDealer'
 require_relative 'SpaceStation'
 require_relative 'GameUniverseToUI'
+require_relative 'EnemyStarShip'
+require_relative 'CombatResult'
 
 module Deepspace
   class GameUniverse
@@ -116,7 +118,7 @@ module Deepspace
           nw = @dice.initWithNWeapons
           ns = @dice.initWithNShields
           
-          station.setLoot(Loot.new(0, nw, ns, nh,0))
+          station.setLoot(Loot.new(0, nw, ns, nh, 0))
           @spaceStations.push(station)
         end
         
@@ -125,6 +127,12 @@ module Deepspace
         @currentEnemy = dealer.nextEnemy
         
         @gameState.next(@turns, @spaceStations.length)
+        
+        puts 'ESTACIONES INICIALIZADAS'
+        pp @currentStation.hangar
+        for st in @spaceStations
+          pp st.hangar
+        end
       end
     end
     
@@ -142,22 +150,28 @@ module Deepspace
     
     def nextTurn
       
+      puts "Llamada a nextTurn"
+      puts @gameState.state
+      
       if @gameState.state == GameState::AFTERCOMBAT
         
         if @currentStation.validState 
-          @currentStationIndex = (@currentStationIndex+1)%@spaceStations.lengt
+          @currentStationIndex = (@currentStationIndex+1)%@spaceStations.length
           @turns += 1
           
           @currentStation = @spaceStations[@currentStationIndex]
           @currentStation.cleanUpMountedItems
-          
+                  
           @currentEnemy = CardDealer.new.nextEnemy
           @gameState.next(@turns, @spaceStations.length)
           
+          
           return true
         end
+        
         return false
       end
+      
       return false
     end
     

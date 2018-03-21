@@ -2,6 +2,7 @@
 # Patricia Córdoba Hidalgo
 
 require_relative 'HangarToUI'
+require 'pp'
 
 module Deepspace
   class Hangar
@@ -29,36 +30,44 @@ module Deepspace
     
     public
     def addWeapon(w)
+      puts "Llamada a addWeapon"
+     # puts w.to_s
       if spaceAvailable
+       # puts "aniado arma"
         @weapons.push(w)
+        pp @weapons
+     #   puts @weapons
+     #   puts ""
         return true
       end
       return false
     end
     
     def addShieldBooster(s)
+      puts "Llamada a addShieldBooster"
       if spaceAvailable
         @shieldBoosters.push(s)
+        pp @shieldBoosters
         return true
       end
       return false
     end
         
     def removeShieldBooster(s)
-      if 0 <= s && s < shieldBoosters.length
-        shieldBoosters.delete_at(s) 
+      if 0 <= s && s < @shieldBoosters.length
+        return @shieldBoosters.delete_at(s) 
       end
       return nil
     end
     
     def removeWeapon(w)
-      if 0 <= w && w < weapons.length
-        weapons.delete__at(w)
+      if 0 <= w && w < @weapons.length
+        return @weapons.delete_at(w)
       end
       return nil
     end
     
-    def to_s
+    def to_sweapons
       return "MaxElements: #{@maxElements} \nWeapons: #{@weapons.join(", ")} \nShieldBoosters: #{@shieldBoosters.join(", ")}"
     end
     

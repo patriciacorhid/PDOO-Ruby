@@ -1,6 +1,8 @@
 # David Cabezas Berrido
 # Patricia Córdoba Hidalgo
 
+require_relative 'GameCharacter'
+
 module Deepspace
   class Dice
     def initialize()

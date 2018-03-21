@@ -1,6 +1,7 @@
 # David Cabezas Berrido
 # Patricia Córdoba Hidalgo
 
+require_relative 'ShieldToUI'
 module Deepspace
   class ShieldBooster
     attr_reader :name, :boost, :uses
@@ -16,7 +17,7 @@ module Deepspace
      end
      
      def getUIversion
-       
+       ShieldToUI.new(self)
      end
      
      def to_s
