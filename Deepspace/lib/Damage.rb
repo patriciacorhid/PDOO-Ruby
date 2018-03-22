@@ -2,7 +2,6 @@
 # Patricia Córdoba Hidalgo
 
 require_relative 'DamageToUI'
-require 'pp'
 
 module Deepspace
   class Damage
@@ -82,16 +81,18 @@ module Deepspace
       if @weapons == nil && @nWeapons>0
         @nWeapons -= 1
       else
-        @weapons.delete(w.type)
+        @weapons.delete(w.type) # MAL, borra todas las ocurrencias
       end
     end
     
     def discardShieldBooster
-      @nShields -= 1
+      if @nShields > 0
+        @nShields -= 1
+      end
     end
     
     def hasNoEffect
-      return @nShields <= 0 && (@nWeapons <= 0 || @weapons == nil) 
+      return @nShields <= 0 && @nWeapons <= 0 && (@weapons == nil || @weapons.length == 0)
     end
     
     def to_s

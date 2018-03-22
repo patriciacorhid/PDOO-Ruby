@@ -51,6 +51,8 @@ module Deepspace
         combatResult = CombatResult::STATIONWINS
       end
       
+      @gameState.next(@turns, @spaceStations.length)
+      
       return combatResult
     end
     
@@ -128,11 +130,6 @@ module Deepspace
         
         @gameState.next(@turns, @spaceStations.length)
         
-        puts 'ESTACIONES INICIALIZADAS'
-        pp @currentStation.hangar
-        for st in @spaceStations
-          pp st.hangar
-        end
       end
     end
     
@@ -150,9 +147,6 @@ module Deepspace
     
     def nextTurn
       
-      puts "Llamada a nextTurn"
-      puts @gameState.state
-      
       if @gameState.state == GameState::AFTERCOMBAT
         
         if @currentStation.validState 
@@ -162,7 +156,7 @@ module Deepspace
           @currentStation = @spaceStations[@currentStationIndex]
           @currentStation.cleanUpMountedItems
                   
-          @currentEnemy = CardDealer.new.nextEnemy
+          @currentEnemy = CardDealer.instance.nextEnemy
           @gameState.next(@turns, @spaceStations.length)
           
           

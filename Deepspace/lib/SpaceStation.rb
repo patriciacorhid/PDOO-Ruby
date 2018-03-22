@@ -2,7 +2,6 @@
 # Patricia Córdoba Hidalgo
 
 require_relative 'SpaceStationToUI'
-require 'pp'
 
 module Deepspace
   class SpaceStation
@@ -34,14 +33,13 @@ module Deepspace
     end
     
     def cleanPendingDamage
-      if @pendingDamage.hasNoEffect == true
+      if @pendingDamage != nil && @pendingDamage.hasNoEffect
         @pendingDamage = nil
       end
     end
     
     public
     def cleanUpMountedItems
-      
       (@weapons.length-1).downto(0) { |i|
         if @weapons[i].uses <= 0
           @weapons.delete_at(i)
@@ -53,11 +51,10 @@ module Deepspace
           @shieldBoosters.delete_at(i)
         end
       }
-
     end
     
     def discardHangar
-      hangar=nil
+      @hangar=nil
     end
     
     def discardShieldBooster(i)
@@ -124,8 +121,6 @@ module Deepspace
       if @hangar != nil
         w = @hangar.removeWeapon(i)
         
-        puts "Llamada a mountWeapon" 
-        
         if w != nil
           @weapons.push(w)
         end
@@ -133,7 +128,7 @@ module Deepspace
     end  
     
     def move
-      @fuelUnits -= getSpeed
+      @fuelUnits -= getSpeed*@fuelUnits
     end
     
     def protection
@@ -147,15 +142,12 @@ module Deepspace
     end
     
     def receiveHangar(h)
-      puts "Llamada a receiveHangar"
-      pp h
       if @hangar == nil
         @hangar = h
       end
     end
     
     def receiveShieldBooster(s)
-      puts "Llamada a receiveShieldBooster"
       if @hangar != nil
         return @hangar.addShieldBooster(s)
       end
@@ -181,16 +173,13 @@ module Deepspace
     end
     
     def receiveWeapon(w)
-      puts "Llamada a receiveWeapon"
       if @hangar != nil
-        return hangar.addWeapon(w)
+        return @hangar.addWeapon(w)
       end
     end
     
     def setLoot(loot)
       dealer=CardDealer.instance
-      
-      puts "Llamada a setLoot"
       
       if loot.nHangars > 0
         receiveHangar(dealer.nextHangar)
@@ -217,10 +206,10 @@ module Deepspace
     
     def validState
       cleanPendingDamage
-      if pendingDamage == nil
+      if @pendingDamage == nil
         return true
       end
-        return false
+      return false
     end
 
     def to_s

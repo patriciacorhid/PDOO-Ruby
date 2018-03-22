@@ -2,7 +2,6 @@
 # Patricia Córdoba Hidalgo
 
 require_relative 'HangarToUI'
-require 'pp'
 
 module Deepspace
   class Hangar
@@ -16,7 +15,16 @@ module Deepspace
     end
     
     def self.newCopy(h)
-      Hangar.new(h.maxElements)
+      copy = Hangar.new(h.maxElements)
+      
+      h.weapons.each { |w|
+        copy.weapons.push(Weapon.new(w))        
+      }
+      
+      h.shieldBoosters.each { |s|
+        copy.shieldBoosters.push(ShieldBooster.new(s))
+      }
+      return copy
     end
     
     def getUIversion
@@ -30,24 +38,16 @@ module Deepspace
     
     public
     def addWeapon(w)
-      puts "Llamada a addWeapon"
-     # puts w.to_s
       if spaceAvailable
-       # puts "aniado arma"
         @weapons.push(w)
-        pp @weapons
-     #   puts @weapons
-     #   puts ""
         return true
       end
       return false
     end
     
     def addShieldBooster(s)
-      puts "Llamada a addShieldBooster"
       if spaceAvailable
         @shieldBoosters.push(s)
-        pp @shieldBoosters
         return true
       end
       return false

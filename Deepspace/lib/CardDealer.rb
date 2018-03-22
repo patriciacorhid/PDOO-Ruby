@@ -125,6 +125,7 @@ class CardDealer
     end
                                
     def createHangars() 
+        @hangars.add(Hangar.new(5))
         @hangars.add(Hangar.new(4))
         @hangars.add(Hangar.new(4))
         @hangars.add(Hangar.new(3))
@@ -137,7 +138,7 @@ class CardDealer
     end
     
     def createEnemies()
-        awesomeLoot=Loot.new(5,5,5,2,3)
+        awesomeLoot=Loot.new(5,2,3,1,3)
         regularLoot0=Loot.new(1,2,1,1,1)
         regularLoot1=Loot.new(1,1,2,1,1)
         badLoot=Loot.new(1,1,1,0,1)
