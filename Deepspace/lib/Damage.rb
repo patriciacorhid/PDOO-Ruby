@@ -81,7 +81,7 @@ module Deepspace
       if @weapons == nil && @nWeapons>0
         @nWeapons -= 1
       else
-        @weapons.delete(w.type) # MAL, borra todas las ocurrencias
+        @weapons.delete_at(@weapons.index(w.type))
       end
     end
     

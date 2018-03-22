@@ -6,7 +6,7 @@ require_relative 'SpaceStationToUI'
 module Deepspace
   class SpaceStation
     
-    attr_reader :ammoPower, :fuelUnits, :name, :nMedals, :shieldPower, :hangar, :pendingDamage,
+    attr_reader :ammoPower, :fuelUnits, :name, :nMedals, :shieldPower, :hangar,
                 :weapons, :shieldBoosters, :pendingDamage
     
     @@MAXFUEL=100
@@ -40,17 +40,22 @@ module Deepspace
     
     public
     def cleanUpMountedItems
-      (@weapons.length-1).downto(0) { |i|
-        if @weapons[i].uses <= 0
-          @weapons.delete_at(i)
-        end
-      }
       
-      (@shieldBoosters.length-1).downto(0) { |i|
-        if @shieldBoosters[i].uses <= 0
-          @shieldBoosters.delete_at(i)
-        end
-      }
+#      (@weapons.length-1).downto(0) { |i|
+#        if @weapons[i].uses <= 0
+#          @weapons.delete_at(i)
+#        end
+#      }
+#      
+#      (@shieldBoosters.length-1).downto(0) { |i|
+#        if @shieldBoosters[i].uses <= 0
+#          @shieldBoosters.delete_at(i)
+#        end
+#      }
+
+      @weapons.delete_if { |x| x.uses <= 0}
+      @shieldBoosters.delete_if { |x| x.uses <= 0}
+
     end
     
     def discardHangar
@@ -216,7 +221,6 @@ module Deepspace
       return "Name #{@name} \nAmmoPower: #{@ammoPower} \nFuelUnits: #{@fuelUnits}
       \nShieldPower: #{@shieldPower} \nMedals: #{@nMedals} \nWeapons: #{@weapons}
       \nShieldBoosters: #{@shieldBoosters} \nHangar: #{@hangar} \nPendingDamage: #{@pendingDamage}"
-    end
-    
+    end    
   end
 end
