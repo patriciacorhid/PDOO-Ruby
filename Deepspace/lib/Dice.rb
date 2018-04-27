@@ -10,6 +10,7 @@ module Deepspace
        @NSHIELDSPROB = 0.25
        @NWEAPONSPROB = 0.33
        @FIRSTSHOTPROB = 0.5
+       @EXTRAEFFICIENCY = 0.8
        @generator = Random.new
      end
      
@@ -63,7 +64,7 @@ module Deepspace
        x = @generator.rand(1.0)
        
        if x < @FIRSTSHOTPROB
-         return GameCharacter::SPACESTATION
+         return GameCharacter::SPACESTATIONBetaPowerEfficientSpaceStation
        else
          return GameCharacter::ENEMYSTARSHIP
        end
@@ -74,11 +75,13 @@ module Deepspace
        
        x = @generator.rand(1.0)
        
-       if x < speed
-         return true
-       else
-         return false
-       end
+       return x < speed
+     end
+     
+     def extraEfficiency
+       x= @generator.rand(1.0)
+       
+       return x < @EXTRAEFFICIENCY
      end
    end
   end

@@ -18,6 +18,7 @@ module Deepspace
       @gameState = GameStateController.new
       @turns = 0
       @dice = Dice.new
+      @haveSpaceCity=false
     end
     
     def combatGo(station, enemy)
@@ -56,6 +57,26 @@ module Deepspace
       return combatResult
     end
     
+    private
+    def makeStationEfficient
+      if @dice.extraEfficiency
+        #@currentStation = new BetaPowerEfficientSpaceStation(@currentStation)
+      else
+        #@currentStation = new PowerEfficientSpaceStation(@currentStation)
+      end
+      
+      @spaceStations[@currentStation]=@currentStation
+    end
+    
+    def createSpaceCity
+        if !@haveSpaceCity
+            @currentStation= SpaceCity.new(@currentStation, @spaceStations)
+            @spaceStations[@currentStationIndex]=@currentStation
+            @haveSpaceCity = true;
+        end
+    end
+    
+    public
     def combat
       state = @gameState.state
       if state == GameState::BEFORECOMBAT || state == GameState::INIT
@@ -146,7 +167,6 @@ module Deepspace
     end
     
     def nextTurn
-      
       if @gameState.state == GameState::AFTERCOMBAT
         
         if @currentStation.validState 
@@ -158,8 +178,7 @@ module Deepspace
                   
           @currentEnemy = CardDealer.instance.nextEnemy
           @gameState.next(@turns, @spaceStations.length)
-          
-          
+         
           return true
         end
         
@@ -170,7 +189,8 @@ module Deepspace
     end
     
     def to_s
-      return "Index: #{@currentStationIndex} + \nTurns: #{@turns}"
+      return "Index: #{@currentStationIndex} \nTurns: #{@turns} \nSpaceStations:
+              #{@spaceStations.join(", ")} \nCurrentStation: #{@currentStation} \nCurrentEnemy: #{@currentEnemy}"
     end
     
   end

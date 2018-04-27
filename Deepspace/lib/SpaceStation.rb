@@ -1,4 +1,4 @@
-# David Cabezas Berrido
+  # David Cabezas Berrido
 # Patricia Córdoba Hidalgo
 
 require_relative 'SpaceStationToUI'
@@ -203,6 +203,14 @@ module Deepspace
       end
       
       @nMedals+=loot.nMedals
+      
+      if loot.spaceCity
+        return Transformation::SPACECITY
+      elsif loot.efficient
+        return Transformation::GETEFFICIENT
+      else 
+        return Transformation::NOTRANSFORM
+      end
     end
     
     def setPendingDamage(d)
@@ -219,8 +227,8 @@ module Deepspace
 
     def to_s
       return "Name #{@name} \nAmmoPower: #{@ammoPower} \nFuelUnits: #{@fuelUnits}
-      \nShieldPower: #{@shieldPower} \nMedals: #{@nMedals} \nWeapons: #{@weapons}
-      \nShieldBoosters: #{@shieldBoosters} \nHangar: #{@hangar} \nPendingDamage: #{@pendingDamage}"
+      ShieldPower: #{@shieldPower} \nMedals: #{@nMedals} \nWeapons: #{@weapons.join(", ")}
+      ShieldBoosters: #{@shieldBoosters.join(", ")} \nHangar: #{@hangar} \nPendingDamage: #{@pendingDamage}"
     end    
   end
 end
