@@ -2,15 +2,17 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
+require_relative 'SpaceCityToUI'
+
 module Deepspace
   class SpaceCity < SpaceStation
     
     attr_reader :collaborators
     
     def initialize(bas, rest)
-      ########
-      @collaborators = Array.new(rest)
-      @base=bas;
+      super(bas.name,bas.getSupplies,bas.weapons,bas.shieldBoosters,bas.hangar,bas.pendingDamage)
+      @collaborators=rest
+      @base=bas
     end
     
     def getUIversion
@@ -21,20 +23,20 @@ module Deepspace
       suma = 0
       
       @collaborators.each {|c|
-        suma+=c.fire
+          suma+=c.fire
       }
       
-      return suma
+      return suma + super
     end
     
     def protection
       suma = 0
       
       @collaborators.each{|c|
-        suma+=c.protection
+          suma+=c.protection
       }
       
-      return suma
+      return suma + super
     end
     
     def setLoot(loot)

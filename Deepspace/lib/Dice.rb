@@ -64,7 +64,7 @@ module Deepspace
        x = @generator.rand(1.0)
        
        if x < @FIRSTSHOTPROB
-         return GameCharacter::SPACESTATIONBetaPowerEfficientSpaceStation
+         return GameCharacter::SPACESTATION
        else
          return GameCharacter::ENEMYSTARSHIP
        end

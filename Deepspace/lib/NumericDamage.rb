@@ -2,7 +2,7 @@
 # Patricia Córdoba Hidalgo
 
 require_relative 'NumericDamageToUI'
-
+require_relative 'Damage'
 module Deepspace
   class NumericDamage < Damage
     

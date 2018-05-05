@@ -2,13 +2,14 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
+require_relative 'PowerEfficientSpaceStationToUI'
 module Deepspace
   class PowerEfficientSpaceStation < SpaceStation
     
     @@EFFICIENCYFACTOR = 1.1
     
-    def initialize
-      ######
+    def initialize(st)
+      super(st.name,st.getSupplies,st.weapons,st.shieldBoosters,st.hangar,st.pendingDamage)
     end
     
     def getUIversion

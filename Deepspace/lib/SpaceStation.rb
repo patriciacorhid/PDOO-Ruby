@@ -2,6 +2,7 @@
 # Patricia Córdoba Hidalgo
 
 require_relative 'SpaceStationToUI'
+require_relative 'Transformation'
 
 module Deepspace
   class SpaceStation
@@ -12,23 +13,36 @@ module Deepspace
     @@MAXFUEL=100
     @@SHIELDLOSSPERUNITSHOT=0.1
     
-    def initialize(n, supplies)
+    def initialize(n, supplies, w, s, h, pd)
       @name = n
       @ammoPower = supplies.ammoPower
-      @fuelUnits = supplies.fuelUnits
+      assignFuelValue(supplies.fuelUnits)
       @shieldPower = supplies.shieldPower
       @nMedals = 0
       
-      @weapons = Array.new()
-      @shieldBoosters = Array.new()
-      @hangar = nil
-      @pendingDamage = nil
+      @weapons = Array.new(w)
+      @shieldBoosters = Array.new(s)
+      
+      if h != nil
+        @hangar = Hangar.newCopy(h)
+      else
+        @hangar = nil
+      end
+      
+      if pd != nil
+        @pendingDamage = pd.copy
+      else
+        @pendingDamage = nil
+      end
     end
     
     private
     def assignFuelValue(f)
-      if f<@@MAXFUEL
+      @fuelUnits = 0
+      if f<=@@MAXFUEL && f >= 0
         @fuelUnits = f
+      else
+        @fuelUnits = @@MAXFUEL
       end
     end
     
@@ -224,11 +238,17 @@ module Deepspace
       end
       return false
     end
+    
+    def getSupplies
+      SuppliesPackage.new(@ammoPower,@fuelUnits,@shieldPower)
+    end
 
     def to_s
       return "Name #{@name} \nAmmoPower: #{@ammoPower} \nFuelUnits: #{@fuelUnits}
       ShieldPower: #{@shieldPower} \nMedals: #{@nMedals} \nWeapons: #{@weapons.join(", ")}
       ShieldBoosters: #{@shieldBoosters.join(", ")} \nHangar: #{@hangar} \nPendingDamage: #{@pendingDamage}"
-    end    
+    end
+
+    protected :getSupplies
   end
 end

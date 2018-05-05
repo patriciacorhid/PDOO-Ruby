@@ -8,6 +8,9 @@ require_relative 'SpaceStation'
 require_relative 'GameUniverseToUI'
 require_relative 'EnemyStarShip'
 require_relative 'CombatResult'
+require_relative 'SpaceCity'
+require_relative 'PowerEfficientSpaceStation'
+require_relative 'BetaPowerEfficientSpaceStation'
 
 module Deepspace
   class GameUniverse
@@ -48,7 +51,13 @@ module Deepspace
         end
         
       else
-        station.setLoot(enemy.loot)
+        trans = station.setLoot(enemy.loot)
+        combatResult = CombatResult::STATIONWINSANDCONVERTS
+        if trans == Transformation::GETEFFICIENT
+          makeStationEfficient
+        elsif trans == Transformation::SPACECITY
+          createSpaceCity
+        end
         combatResult = CombatResult::STATIONWINS
       end
       
@@ -60,19 +69,25 @@ module Deepspace
     private
     def makeStationEfficient
       if @dice.extraEfficiency
-        #@currentStation = new BetaPowerEfficientSpaceStation(@currentStation)
+        @currentStation = BetaPowerEfficientSpaceStation.new(@currentStation)
       else
-        #@currentStation = new PowerEfficientSpaceStation(@currentStation)
+        @currentStation = PowerEfficientSpaceStation.new(@currentStation)
       end
       
-      @spaceStations[@currentStation]=@currentStation
+      @spaceStations[@currentStationIndex]=@currentStation
     end
     
     def createSpaceCity
         if !@haveSpaceCity
-            @currentStation= SpaceCity.new(@currentStation, @spaceStations)
-            @spaceStations[@currentStationIndex]=@currentStation
-            @haveSpaceCity = true;
+          rest = Array.new
+          @spaceStations.each{|t|
+            if t != @currentStation
+              rest.push(t)
+            end
+          }
+          @currentStation= SpaceCity.new(@currentStation, rest)
+          @spaceStations[@currentStationIndex]=@currentStation
+          @haveSpaceCity = true;
         end
     end
     
@@ -136,7 +151,7 @@ module Deepspace
         
         for name in names
           supplies = dealer.nextSuppliesPackage
-          station = SpaceStation.new(name, supplies)
+          station = SpaceStation.new(name, supplies, [], [], nil, nil)
           nh = @dice.initWithNHangars
           nw = @dice.initWithNWeapons
           ns = @dice.initWithNShields

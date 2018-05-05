@@ -2,13 +2,16 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
+require_relative 'BetaPowerEfficientSpaceStationToUI'
+require_relative 'Dice'
+
 module Deepspace
   class BetaPowerEfficientSpaceStation < PowerEfficientSpaceStation
     
     @@EXTRAEFFICIENCY=1.2
     
-    def initialize
-      ####
+    def initialize(st)
+      super(st)
       @dice= Dice.new
     end
     
@@ -18,7 +21,7 @@ module Deepspace
     
     def fire
       factor = 1.0
-      if dice.extraEfficienfy
+      if @dice.extraEfficiency
         factor = @@EXTRAEFFICIENCY
       end
       

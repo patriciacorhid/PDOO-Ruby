@@ -2,6 +2,7 @@
 # Patricia Córdoba Hidalgo
 
 require_relative 'SpecificDamageToUI'
+require_relative 'Damage'
 
 module Deepspace
   class SpecificDamage < Damage
@@ -15,8 +16,8 @@ module Deepspace
       @weapons=Array.new(wl)
     end
     
-    def copy()
-      return SpecificDamage.new(nShields, @weapons) 
+    def copy
+      return SpecificDamage.new(@weapons,nShields) 
     end
     
     def getUIversion
@@ -24,12 +25,11 @@ module Deepspace
     end
     
     def adjust(w,s)
-      int ns = adjustShields(s);
+      ns = adjustShields(s);
       
-      aux = Damage.new(ns, @weapons)
+      aux = SpecificDamage.new(@weapons,ns)
       copy = Array.new(w)
       
-      if @weapons != nil
         @weapons.each {|x|
           index=arrayContainsType(copy, x)
 
@@ -39,7 +39,6 @@ module Deepspace
             copy.delete_at(index)
           end
         }
-      end
       
       return aux
     end

@@ -18,11 +18,11 @@ module Deepspace
       copy = Hangar.new(h.maxElements)
       
       h.weapons.each { |w|
-        copy.weapons.push(Weapon.new(w))        
+        copy.weapons.push(Weapon.newCopy(w))        
       }
       
       h.shieldBoosters.each { |s|
-        copy.shieldBoosters.push(ShieldBooster.new(s))
+        copy.shieldBoosters.push(ShieldBooster.newCopy(s))
       }
       return copy
     end
