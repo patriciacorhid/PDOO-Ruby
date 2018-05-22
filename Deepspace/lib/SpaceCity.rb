@@ -10,7 +10,7 @@ module Deepspace
     attr_reader :collaborators
     
     def initialize(bas, rest)
-      super(bas.name,bas.getSupplies,bas.weapons,bas.shieldBoosters,bas.hangar,bas.pendingDamage)
+      super(bas.name,bas.getSupplies, bas.nMedals, bas.weapons,bas.shieldBoosters,bas.hangar,bas.pendingDamage)
       @collaborators=rest
       @base=bas
     end

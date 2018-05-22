@@ -13,12 +13,12 @@ module Deepspace
     @@MAXFUEL=100
     @@SHIELDLOSSPERUNITSHOT=0.1
     
-    def initialize(n, supplies, w, s, h, pd)
+    def initialize(n, supplies, m, w, s, h, pd)
       @name = n
       @ammoPower = supplies.ammoPower
       assignFuelValue(supplies.fuelUnits)
       @shieldPower = supplies.shieldPower
-      @nMedals = 0
+      @nMedals = m
       
       @weapons = Array.new(w)
       @shieldBoosters = Array.new(s)
@@ -189,6 +189,9 @@ module Deepspace
       @ammoPower += s.ammoPower
       @fuelUnits += s.fuelUnits
       @shieldPower += s.shieldPower
+      if @fuelUnits > @@MAXFUEL
+        @fuelUnits = @@MAXFUEL
+      end
     end
     
     def receiveWeapon(w)

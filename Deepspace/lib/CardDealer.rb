@@ -62,19 +62,25 @@ class CardDealer
     end
     
     def createSuppliesPackages() 
-#        @suppliesPackages.add(SuppliesPackage.new(1,10,1))
-#        @suppliesPackages.add(SuppliesPackage.new(1,10,1))
-#        @suppliesPackages.add(SuppliesPackage.new(1,10,1))
-#        @suppliesPackages.add(SuppliesPackage.new(2,10,2))
-#        @suppliesPackages.add(SuppliesPackage.new(2,10,2))
-#        @suppliesPackages.add(SuppliesPackage.new(2,10,2))
-#        @suppliesPackages.add(SuppliesPackage.new(2,30,1))
-#        @suppliesPackages.add(SuppliesPackage.new(1,30,2))
-#        @suppliesPackages.add(SuppliesPackage.new(3,0,1))
-#        @suppliesPackages.add(SuppliesPackage.new(1,0,3))
+        @suppliesPackages.add(SuppliesPackage.new(1,10,1))
+        @suppliesPackages.add(SuppliesPackage.new(1,10,1))
+        @suppliesPackages.add(SuppliesPackage.new(1,10,1))
+        @suppliesPackages.add(SuppliesPackage.new(2,10,2))
+        @suppliesPackages.add(SuppliesPackage.new(2,10,2))
+        @suppliesPackages.add(SuppliesPackage.new(2,10,2))
+        @suppliesPackages.add(SuppliesPackage.new(2,30,1))
+        @suppliesPackages.add(SuppliesPackage.new(1,30,2))
+        @suppliesPackages.add(SuppliesPackage.new(3,0,1))
+        @suppliesPackages.add(SuppliesPackage.new(1,0,3))
         @suppliesPackages.add(SuppliesPackage.new(3,50,3))  
         @suppliesPackages.add(SuppliesPackage.new(40,100,40))
+        @suppliesPackages.add(SuppliesPackage.new(40,100,40))
+        @suppliesPackages.add(SuppliesPackage.new(40,100,40))
         @suppliesPackages.add(SuppliesPackage.new(100,100,100))
+        @suppliesPackages.add(SuppliesPackage.new(100,100,100))
+        @suppliesPackages.add(SuppliesPackage.new(100,100,100))
+        @suppliesPackages.add(SuppliesPackage.new(500,100,500))
+        @suppliesPackages.add(SuppliesPackage.new(500,100,500))
     end
     
     def createWeapons() 
@@ -156,31 +162,31 @@ class CardDealer
         @enemies.add(EnemyStarShip.new("Enemigo fácil -1",0,0,regularLoot0,lowDamage0));
         @enemies.add(EnemyStarShip.new("Enemigo fácil -1",0,10,badLoot,lowDamage0));
         @enemies.add(EnemyStarShip.new("Enemigo fácil -1",10,0,badLoot,lowDamage0));
-#        @enemies.add(EnemyStarShip.new("Enemigo fácil 0",10,10,badLoot,lowDamage0));
-#        @enemies.add(EnemyStarShip.new("Enemigo fácil 0",10,10,badLoot,lowDamage0));
-#        @enemies.add(EnemyStarShip.new("Enemigo fácil 0",10,10,badLoot,lowDamage0));
-#        @enemies.add(EnemyStarShip.new("Enemigo fácil 1",10,20,badLoot,lowDamage1));
-#        @enemies.add(EnemyStarShip.new("Enemigo fácil 1",10,20,badLoot,lowDamage1));
-#        @enemies.add(EnemyStarShip.new("Enemigo fácil 1",10,20,badLoot,lowDamage1));
-#        @enemies.add(EnemyStarShip.new("Enemigo fácil 2",20,10,badLoot,lowDamage2));
-#        @enemies.add(EnemyStarShip.new("Enemigo fácil 2",20,10,badLoot,lowDamage2));
-#        @enemies.add(EnemyStarShip.new("Enemigo fácil 2",20,20,badLoot,lowDamage2));        
-#        @enemies.add(EnemyStarShip.new("Enemigo fácil 3",50,50,badLoot,softSpecificDamage0)); 
-#        @enemies.add(EnemyStarShip.new("Enemigo fácil 4",50,50,badLoot,softSpecificDamage1)); 
-#        @enemies.add(EnemyStarShip.new("Enemigo fácil 5",30,30,badLoot,softSpecificDamage2));         
-#        
-#        @enemies.add(EnemyStarShip.new("Enemigo normal 0",100,100,regularLoot0,regularDamage0));
-#        @enemies.add(EnemyStarShip.new("Enemigo normal 1",150,70,regularLoot1,regularDamage1));   
-#        @enemies.add(EnemyStarShip.new("Enemigo normal 2",100,100,regularLoot0,mediumSpecificDamage0));
-#        @enemies.add(EnemyStarShip.new("Enemigo normal 3",150,90,regularLoot1,mediumSpecificDamage0));  
-#        @enemies.add(EnemyStarShip.new("Enemigo normal 3",150,70,regularLoot0,regularSpecificDamage0));   
-#        @enemies.add(EnemyStarShip.new("Enemigo normal 3",150,70,regularLoot0,regularSpecificDamage0));
-#        @enemies.add(EnemyStarShip.new("Enemigo normal 3",150,70,regularLoot0,regularSpecificDamage0));        
-#          
-#        @enemies.add(EnemyStarShip.new("Enemigo difícil 0",200,100,goodLoot,hardSpecificDamage0));          
-#        @enemies.add(EnemyStarShip.new("Enemigo difícil 1",100,200,goodLoot,hardSpecificDamage0));   
-#        
-#        @enemies.add(EnemyStarShip.new("Enemigo imposible",500,500,goodLoot,hardSpecificDamage0));   
+        @enemies.add(EnemyStarShip.new("Enemigo fácil 0",10,10,badLoot,lowDamage0));
+        @enemies.add(EnemyStarShip.new("Enemigo fácil 0",10,10,badLoot,lowDamage0));
+        @enemies.add(EnemyStarShip.new("Enemigo fácil 0",10,10,badLoot,lowDamage0));
+        @enemies.add(EnemyStarShip.new("Enemigo fácil 1",10,20,badLoot,lowDamage1));
+        @enemies.add(EnemyStarShip.new("Enemigo fácil 1",10,20,badLoot,lowDamage1));
+        @enemies.add(EnemyStarShip.new("Enemigo fácil 1",10,20,badLoot,lowDamage1));
+        @enemies.add(EnemyStarShip.new("Enemigo fácil 2",20,10,badLoot,lowDamage2));
+        @enemies.add(EnemyStarShip.new("Enemigo fácil 2",20,10,badLoot,lowDamage2));
+        @enemies.add(EnemyStarShip.new("Enemigo fácil 2",20,20,badLoot,lowDamage2));        
+        @enemies.add(EnemyStarShip.new("Enemigo fácil 3",50,50,badLoot,softSpecificDamage0)); 
+        @enemies.add(EnemyStarShip.new("Enemigo fácil 4",50,50,badLoot,softSpecificDamage1)); 
+        @enemies.add(EnemyStarShip.new("Enemigo fácil 5",30,30,badLoot,softSpecificDamage2));         
+        
+        @enemies.add(EnemyStarShip.new("Enemigo normal 0",100,100,regularLoot0,regularDamage0));
+        @enemies.add(EnemyStarShip.new("Enemigo normal 1",150,70,regularLoot1,regularDamage1));   
+        @enemies.add(EnemyStarShip.new("Enemigo normal 2",100,100,regularLoot0,mediumSpecificDamage0));
+        @enemies.add(EnemyStarShip.new("Enemigo normal 3",150,90,regularLoot1,mediumSpecificDamage0));  
+        @enemies.add(EnemyStarShip.new("Enemigo normal 3",150,70,regularLoot0,regularSpecificDamage0));   
+        @enemies.add(EnemyStarShip.new("Enemigo normal 3",150,70,regularLoot0,regularSpecificDamage0));
+        @enemies.add(EnemyStarShip.new("Enemigo normal 3",150,70,regularLoot0,regularSpecificDamage0));        
+          
+        @enemies.add(EnemyStarShip.new("Enemigo difícil 0",200,100,goodLoot,hardSpecificDamage0));          
+        @enemies.add(EnemyStarShip.new("Enemigo difícil 1",100,200,goodLoot,hardSpecificDamage0));   
+        
+        @enemies.add(EnemyStarShip.new("Enemigo imposible",500,500,goodLoot,hardSpecificDamage0));   
         
         # Enemigos que transforman
         
@@ -195,6 +201,7 @@ class CardDealer
         @enemies.add(EnemyStarShip.new("Enemigo transforma 5",100,200,transformLoot1,regularDamage1))
         @enemies.add(EnemyStarShip.new("Enemigo transforma 6",200,100,transformLoot0,regularDamage0))
         @enemies.add(EnemyStarShip.new("Enemigo transforma 7",100,200,transformLoot1,regularDamage1))
+
     end
 end # class
 

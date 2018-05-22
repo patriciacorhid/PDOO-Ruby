@@ -9,7 +9,7 @@ module Deepspace
     @@EFFICIENCYFACTOR = 1.1
     
     def initialize(st)
-      super(st.name,st.getSupplies,st.weapons,st.shieldBoosters,st.hangar,st.pendingDamage)
+      super(st.name,st.getSupplies, st.nMedals, st.weapons,st.shieldBoosters,st.hangar,st.pendingDamage)
     end
     
     def getUIversion

@@ -15,7 +15,7 @@ require_relative 'BetaPowerEfficientSpaceStation'
 module Deepspace
   class GameUniverse
     
-    @@WIN = 10
+    @@WIN = 5
     
     def initialize
       @gameState = GameStateController.new
@@ -151,7 +151,7 @@ module Deepspace
         
         for name in names
           supplies = dealer.nextSuppliesPackage
-          station = SpaceStation.new(name, supplies, [], [], nil, nil)
+          station = SpaceStation.new(name, supplies, 0, [], [], nil, nil)
           nh = @dice.initWithNHangars
           nw = @dice.initWithNWeapons
           ns = @dice.initWithNShields
