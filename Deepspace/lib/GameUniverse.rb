@@ -55,14 +55,15 @@ module Deepspace
         combatResult = CombatResult::STATIONWINSANDCONVERTS
         if trans == Transformation::GETEFFICIENT
           makeStationEfficient
-        elsif trans == Transformation::SPACECITY
+        elsif trans == Transformation::SPACECITY && !@haveSpaceCity
           createSpaceCity
+        else
+          combatResult = CombatResult::STATIONWINS
         end
-        combatResult = CombatResult::STATIONWINS
       end
       
       @gameState.next(@turns, @spaceStations.length)
-      
+
       return combatResult
     end
     

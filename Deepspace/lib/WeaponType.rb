@@ -13,7 +13,7 @@ module Deepspace
       end
       
       def to_s
-        return "Type = #{@typeName} \nPower = #{@power}"
+        return "Type = #{@typeName} Power = #{@power}"
       end
       
      end

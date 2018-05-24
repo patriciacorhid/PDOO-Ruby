@@ -65,7 +65,7 @@ module Deepspace
     end
     
     def to_s
-      return "\nWeapons: #{@weapons} \n#{super}"
+      return "\nWeapons: #{@weapons.join(", ")} \n#{super}"
     end
     
   end
